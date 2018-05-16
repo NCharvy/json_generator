@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JSON generator">
+    <title>Générateur de configuration</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  </head>
+  <body>
+    <section class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Générateur de configuration</h2>
+        </div>
+        <div class="panel-body">
+          <form id="form-generator">
+            <div class="form-group row">
+              <label for="url" class="col-sm-2 col-form-label">Url</label>
+              <div class="col-sm-10">
+                <input required type="url" name="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" placeholder="Url de la page">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="reload-timeout" class="col-sm-2 col-form-label">Reload timeout</label>
+              <div class="col-sm-10">
+                <input required type="number" min="0" max="600" class="form-control" name="reload_timeout" id="reload-timeout" placeholder="Reload timeout">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="orientation" class="col-sm-2 col-form-label">Orientation</label>
+              <div class="col-sm-10">
+                <select required class="form-control" id="orientation" name="screensaver_orientation">
+                  <option selected value="portrait">Portrait</option>
+                  <option value="landscape">Landscape</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="screen-saver-timeout" class="col-sm-2 col-form-label">Screen saver timeout</label>
+              <div class="col-sm-10">
+                <input required type="number" min="0" max="600" class="form-control" name="screensaver.screensaver_timeout" id="screen-saver-timeout" placeholder="Screen saver timeout">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="screen-saver-delay" class="col-sm-2 col-form-label">Screen saver delay</label>
+              <div class="col-sm-10">
+                <input required type="number" min="0" max="60" class="form-control" name="screensaver.screensaver_delay" id="screen-saver-delay" placeholder="Screen saver delay">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="url" class="col-sm-2 col-form-label">Screen saver image 1</label>
+              <div class="col-sm-10">
+                <input required type="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" name="screensaver.screensaver_items.item1" placeholder="Screen saver image 1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="url" class="col-sm-2 col-form-label">Screen saver image 2</label>
+              <div class="col-sm-10">
+                <input required type="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" name="screensaver.screensaver_items.item2" placeholder="Screen saver image 2">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="url" class="col-sm-2 col-form-label">Screen saver image 3</label>
+              <div class="col-sm-10">
+                <input required type="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" name="screensaver.screensaver_items.item3" placeholder="Screen saver image 3">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-2 col-sm-10">
+                <button type="reset" id="reset" class="btn btn-primary">Reset</button>
+                <button type="submit" class="btn btn-success">Générer</button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="src/js/generator.js"></script>
+  </body>
+</html>
