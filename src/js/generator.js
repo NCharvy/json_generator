@@ -1,5 +1,7 @@
 $(document).ready(function(){
+    // Base form
     var $form = $("#form-generator");
+    // Validation config
     var validation = [
         {
             elements: [
@@ -26,7 +28,7 @@ $(document).ready(function(){
         },
         {
             elements: [
-                "screensaver_orientation"
+                "screen_orientation"
             ],
             type: "select",
             enum: [
@@ -36,15 +38,26 @@ $(document).ready(function(){
         }
     ];
 
+    // Triggered on form submit
     $form.on("submit", function(e){
         e.preventDefault();
+        // get array of form data
         var data = $(this).serializeArray();
+        // validation
         if(validateData(data, validation)){
+            // send parsed json
             xhrJSON(parseData(data));
         }   
     });
 });
 
+/**
+ * Send the JSON data to the PHP file
+ * in an XHR request
+ * 
+ * @method  xhrJSON
+ * @param  {Object} data JSON data
+ */
 function xhrJSON(data) {
     $.ajax({
        url : "src/php/execute.php",
@@ -64,22 +77,30 @@ function xhrJSON(data) {
             error: err
         };
         console.log(data);
-       },
-
-
-       complete : function(res, status){
-        console.log("complete", res);
        }
     });
 }
 
+/**
+ * Parse the JSON data into the requested format
+ *
+ * @method  parseData
+ * @param  {Object} data JSON data
+ * @return {Object} Parsed data
+ */
 function parseData(data) {
+    // prepared the parsed object
     var parsed = {};
+    // iterate through the JSON attributes
     data.forEach(function(elem){
+        // get the name splits
         var nameSplit = elem.name.split(".");
+        // simply add the current attribute to the
+        // object if the name was'nt hierarchized
         if(nameSplit.length == 1) {
             parsed[elem.name] = elem.value;
         }
+        // else, iterate throught the sub elements to parse in the right format
         else {
             var screenSaver = parsed[nameSplit[0]] = (typeof parsed[nameSplit[0]] !== "undefined") ? parsed[nameSplit[0]] : {};
             if(nameSplit[1] == "screensaver_items") {
@@ -100,17 +121,32 @@ function parseData(data) {
     return parsed;
 }
 
+/**
+ * Validate all the data values using the 
+ * validation config initialized before
+ *
+ * @method  validateData
+ * @param  {Object} data        JSON data
+ * @param  {Array} validation   Validation config
+ * @return {Boolean}
+ */
 function validateData(data, validation) {
+    // initialize errors array
     var errors = [];
+    // iterate through validation config
     validation.forEach(function(validator){
+        // the elements matching the current validator
         var elements = validator.elements;
+        // iterate through those elements
         elements.forEach(function(elem, i){
-            console.log(elem);
             var test = true;
             var err = "";
+            // find the input element if it matches with one of
+            // the validator elements
             var inputElement = data.find(function(input){
                 return input.name === elem;
-            })
+            });
+            // performs all the validations according to the input type
             if(typeof inputElement !== "undefined") {
                 switch(validator.type){
                     case "url":
@@ -141,8 +177,9 @@ function validateData(data, validation) {
         });
     });
 
+    // returns false if at least on of the elements
+    // did not pass the validation
     if(errors.length > 0) {
-        console.log(errors);
         return false;
     }
     return true;
