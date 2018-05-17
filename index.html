@@ -10,65 +10,65 @@
   </head>
   <body>
     <section class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading">
+      <div class="card">
+        <div class="card-header">
           <h2>Générateur de configuration</h2>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <form id="form-generator">
             <div class="form-group row">
-              <label for="url" class="col-sm-2 col-form-label">Url</label>
-              <div class="col-sm-10">
+              <label for="url" class="col-sm-4 col-form-label">Url</label>
+              <div class="col-sm-8">
                 <input required type="url" name="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" placeholder="Url de la page">
               </div>
             </div>
             <div class="form-group row">
-              <label for="reload-timeout" class="col-sm-2 col-form-label">Reload timeout</label>
-              <div class="col-sm-10">
+              <label for="reload-timeout" class="col-sm-4 col-form-label">Reload timeout</label>
+              <div class="col-sm-8">
                 <input required type="number" min="0" max="600" class="form-control" name="reload_timeout" id="reload-timeout" placeholder="Reload timeout">
               </div>
             </div>
             <div class="form-group row">
-              <label for="orientation" class="col-sm-2 col-form-label">Orientation</label>
-              <div class="col-sm-10">
-                <select required class="form-control" id="orientation" name="screensaver_orientation">
+              <label for="orientation" class="col-sm-4 col-form-label">Orientation</label>
+              <div class="col-sm-8">
+                <select required class="form-control" id="orientation" name="screen_orientation">
                   <option selected value="portrait">Portrait</option>
                   <option value="landscape">Landscape</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label for="screen-saver-timeout" class="col-sm-2 col-form-label">Screen saver timeout</label>
-              <div class="col-sm-10">
+              <label for="screen-saver-timeout" class="col-sm-4 col-form-label">Screen saver timeout</label>
+              <div class="col-sm-8">
                 <input required type="number" min="0" max="600" class="form-control" name="screensaver.screensaver_timeout" id="screen-saver-timeout" placeholder="Screen saver timeout">
               </div>
             </div>
             <div class="form-group row">
-              <label for="screen-saver-delay" class="col-sm-2 col-form-label">Screen saver delay</label>
-              <div class="col-sm-10">
+              <label for="screen-saver-delay" class="col-sm-4 col-form-label">Screen saver delay</label>
+              <div class="col-sm-8">
                 <input required type="number" min="0" max="60" class="form-control" name="screensaver.screensaver_delay" id="screen-saver-delay" placeholder="Screen saver delay">
               </div>
             </div>
             <div class="form-group row">
-              <label for="url" class="col-sm-2 col-form-label">Screen saver image 1</label>
-              <div class="col-sm-10">
+              <label for="url" class="col-sm-4 col-form-label">Screen saver image 1</label>
+              <div class="col-sm-8">
                 <input required type="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" name="screensaver.screensaver_items.item1" placeholder="Screen saver image 1">
               </div>
             </div>
             <div class="form-group row">
-              <label for="url" class="col-sm-2 col-form-label">Screen saver image 2</label>
-              <div class="col-sm-10">
+              <label for="url" class="col-sm-4 col-form-label">Screen saver image 2</label>
+              <div class="col-sm-8">
                 <input required type="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" name="screensaver.screensaver_items.item2" placeholder="Screen saver image 2">
               </div>
             </div>
             <div class="form-group row">
-              <label for="url" class="col-sm-2 col-form-label">Screen saver image 3</label>
-              <div class="col-sm-10">
+              <label for="url" class="col-sm-4 col-form-label">Screen saver image 3</label>
+              <div class="col-sm-8">
                 <input required type="url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" class="form-control" id="url" name="screensaver.screensaver_items.item3" placeholder="Screen saver image 3">
               </div>
             </div>
             <div class="form-group row">
-              <div class="offset-sm-2 col-sm-10">
+              <div class="offset-sm-5 col-sm-4">
                 <button type="reset" id="reset" class="btn btn-primary">Reset</button>
                 <button type="submit" class="btn btn-success">Générer</button>
               </div>
