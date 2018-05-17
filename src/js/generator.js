@@ -1,40 +1,47 @@
 $(document).ready(function(){
     var $form = $("#form-generator");
-    // var format = [
-    //     {
-    //         elements: [
-    //             "url",
-    //             "screen_saver.screensaver_items.item1",
-    //             "screen_saver.screensaver_items.item2",
-    //             "screen_saver.screensaver_items.item3"
-    //         ],
-    //         pattern: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
-    //     },
-    //     {
-    //         elements: [
-    //             "reload_timeout",
-    //             "screensaver.screensaver_timeout"
-    //         ],
-            
-    //     },
-    //     {
-    //         elements: [
-    //         ],
-    //         pattern: //
-    //     }
-    //     {
-    //         type: "select",
-    //         enum: [
-    //             "landscape",
-    //             "portrait"
-    //         ]
-    //     }
-    // ]
+    var validation = [
+        {
+            elements: [
+                "url",
+                "screensaver.screensaver_items.item1",
+                "screensaver.screensaver_items.item2",
+                "screensaver.screensaver_items.item3"
+            ],
+            type: "url",
+            pattern: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
+        },
+        {
+            elements: [
+                "reload_timeout",
+                "screensaver.screensaver_timeout"
+            ],
+            type: "numberTimeout"
+        },
+        {
+            elements: [
+                "screensaver_delay"
+            ],
+            type: "numberDelay"
+        },
+        {
+            elements: [
+                "screensaver_orientation"
+            ],
+            type: "select",
+            enum: [
+                "landscape",
+                "portrait"
+            ]
+        }
+    ];
+
     $form.on("submit", function(e){
         e.preventDefault();
         var data = $(this).serializeArray();
-        
-        xhrJSON(parseData(data));
+        if(validateData(data, validation)){
+            xhrJSON(parseData(data));
+        }   
     });
 });
 
@@ -93,6 +100,50 @@ function parseData(data) {
     return parsed;
 }
 
-function validateData(data) {
-    
+function validateData(data, validation) {
+    var errors = [];
+    validation.forEach(function(validator){
+        var elements = validator.elements;
+        elements.forEach(function(elem, i){
+            console.log(elem);
+            var test = true;
+            var err = "";
+            var inputElement = data.find(function(input){
+                return input.name === elem;
+            })
+            if(typeof inputElement !== "undefined") {
+                switch(validator.type){
+                    case "url":
+                        test = validator.pattern.test(inputElement.value);
+                        err = `The submitted value of ${elem} is not an url`;
+                        break;
+                    case "numberTimeout":
+                        test = (inputElement.value >= 0) && (inputElement.value <= 600);
+                        err = `The ${elem} value can only be between 0 and 600`;
+                        break;
+                    case "numberDelay":
+                        test = (inputElement.value >= 0) && (inputElement.value <= 60);
+                        err = `The ${elem} value can only be between 0 and 60`;
+                        break;
+                    case "select":
+                        test = validator.enum.find(function(elt){
+                            return elt === inputElement.value;
+                        });
+                        test = (typeof test === "undefined") ? false : true;
+                        err = `The ${elem} value can only be ${validator.enum[0]} or ${validator.enum[1]}`;
+                        break;
+                }
+                if(!test && err.length > 0) {
+                    errors.push(err);
+                    err = "";
+                }
+            }
+        });
+    });
+
+    if(errors.length > 0) {
+        console.log(errors);
+        return false;
+    }
+    return true;
 }
